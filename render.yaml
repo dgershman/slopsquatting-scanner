@@ -1,0 +1,11 @@
+services:
+  - type: web
+    runtime: node
+    name: slopsquatting-scanner
+    repo: https://github.com/dgershman/slopsquatting-scanner
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+    autoDeploy: true
