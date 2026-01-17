@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Slopsquatting Scanner - AI Code Hallucination Detector</title>
+  <title>AI Security Tools - Before The Commit</title>
   <style>
     * {
       box-sizing: border-box;
@@ -19,243 +19,157 @@
     }
 
     .container {
-      max-width: 1000px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 2rem;
     }
 
     header {
       text-align: center;
-      margin-bottom: 2rem;
+      margin-bottom: 3rem;
     }
 
     h1 {
-      font-size: 2.5rem;
-      background: linear-gradient(90deg, #06b6d4, #8b5cf6);
+      font-size: 2.8rem;
+      background: linear-gradient(90deg, #06b6d4, #8b5cf6, #ec4899);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
     }
 
     .subtitle {
       color: #a1a1aa;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
     }
 
-    .warning-banner {
-      background: rgba(234, 179, 8, 0.1);
-      border: 1px solid rgba(234, 179, 8, 0.3);
-      border-radius: 8px;
-      padding: 1rem;
-      margin-bottom: 2rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
+    .tagline {
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      color: #8b5cf6;
+      font-weight: 500;
     }
 
-    .warning-banner svg {
-      flex-shrink: 0;
-      color: #eab308;
-    }
-
-    .warning-banner p {
-      font-size: 0.9rem;
-      line-height: 1.5;
-    }
-
-    .input-section {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 12px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .form-group {
-      margin-bottom: 1rem;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 0.5rem;
-      color: #a1a1aa;
-      font-size: 0.9rem;
-    }
-
-    select {
-      width: 100%;
-      padding: 0.75rem;
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      color: #e4e4e7;
-      font-size: 1rem;
-    }
-
-    textarea {
-      width: 100%;
-      height: 300px;
-      padding: 1rem;
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      color: #e4e4e7;
-      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-      font-size: 0.9rem;
-      resize: vertical;
-    }
-
-    textarea:focus, select:focus {
-      outline: none;
-      border-color: #06b6d4;
-    }
-
-    button {
-      width: 100%;
-      padding: 1rem;
-      background: linear-gradient(90deg, #06b6d4, #8b5cf6);
-      border: none;
-      border-radius: 8px;
-      color: white;
-      font-size: 1.1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 20px rgba(6, 182, 212, 0.3);
-    }
-
-    button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .results-section {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 12px;
-      padding: 1.5rem;
-      display: none;
-    }
-
-    .results-section.visible {
-      display: block;
-    }
-
-    .summary {
+    .tools-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1rem;
-      margin-bottom: 1.5rem;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 3rem;
     }
 
-    .summary-card {
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 8px;
-      padding: 1rem;
-      text-align: center;
+    .tool-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
     }
 
-    .summary-card .value {
-      font-size: 2rem;
-      font-weight: 700;
+    .tool-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+      border-color: rgba(139, 92, 246, 0.5);
     }
 
-    .summary-card .label {
-      color: #a1a1aa;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .risk-none .value { color: #22c55e; }
-    .risk-low .value { color: #22c55e; }
-    .risk-medium .value { color: #eab308; }
-    .risk-high .value { color: #ef4444; }
-
-    .packages-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .package-item {
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 8px;
-      padding: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .package-status {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
+    .tool-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
+      margin-bottom: 1.25rem;
     }
 
-    .package-status.exists {
-      background: rgba(34, 197, 94, 0.2);
-      color: #22c55e;
+    .tool-icon.slopsquatting { background: linear-gradient(135deg, #f59e0b, #d97706); }
+    .tool-icon.context { background: linear-gradient(135deg, #ef4444, #dc2626); }
+    .tool-icon.injection { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+    .tool-icon.vulnerability { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+
+    .tool-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.75rem;
+      color: #f4f4f5;
     }
 
-    .package-status.not-found {
-      background: rgba(239, 68, 68, 0.2);
-      color: #ef4444;
-    }
-
-    .package-info {
-      flex: 1;
-    }
-
-    .package-name {
-      font-weight: 600;
-      font-family: monospace;
-      font-size: 1.1rem;
-    }
-
-    .package-desc {
+    .tool-card p {
       color: #a1a1aa;
-      font-size: 0.85rem;
-      margin-top: 0.25rem;
+      line-height: 1.6;
+      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
     }
 
-    .package-badge {
-      padding: 0.25rem 0.75rem;
+    .tool-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .feature-tag {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 0.35rem 0.75rem;
       border-radius: 999px;
       font-size: 0.75rem;
+      color: #a1a1aa;
+    }
+
+    .combined-scanner {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(6, 182, 212, 0.15));
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .combined-scanner h2 {
+      font-size: 1.6rem;
+      margin-bottom: 0.75rem;
+      color: #f4f4f5;
+    }
+
+    .combined-scanner p {
+      color: #a1a1aa;
+      max-width: 600px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.6;
+    }
+
+    .combined-scanner a {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      background: linear-gradient(90deg, #06b6d4, #8b5cf6);
+      border-radius: 8px;
+      color: white;
+      text-decoration: none;
       font-weight: 600;
-      text-transform: uppercase;
+      font-size: 1.05rem;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .package-badge.exists {
-      background: rgba(34, 197, 94, 0.2);
-      color: #22c55e;
-    }
-
-    .package-badge.not-found {
-      background: rgba(239, 68, 68, 0.2);
-      color: #ef4444;
+    .combined-scanner a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(139, 92, 246, 0.3);
     }
 
     .info-section {
-      margin-top: 2rem;
-      padding: 1.5rem;
-      background: rgba(139, 92, 246, 0.1);
-      border: 1px solid rgba(139, 92, 246, 0.2);
-      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
     }
 
     .info-section h3 {
-      color: #8b5cf6;
+      font-size: 1.3rem;
       margin-bottom: 1rem;
+      color: #8b5cf6;
     }
 
     .info-section p {
@@ -264,18 +178,38 @@
       margin-bottom: 1rem;
     }
 
-    .info-section ul {
-      color: #a1a1aa;
-      margin-left: 1.5rem;
-      line-height: 1.8;
+    .concepts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 1.5rem;
     }
 
-    .stats {
+    .concept {
+      padding: 1.25rem;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 12px;
+      border-left: 3px solid #8b5cf6;
+    }
+
+    .concept h4 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      color: #f4f4f5;
+    }
+
+    .concept p {
+      font-size: 0.85rem;
+      margin: 0;
+    }
+
+    .stats-row {
       display: flex;
-      gap: 2rem;
-      margin-top: 1rem;
-      padding-top: 1rem;
+      justify-content: center;
+      gap: 4rem;
+      padding: 2rem 0;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 2rem;
     }
 
     .stat {
@@ -283,21 +217,26 @@
     }
 
     .stat .number {
-      font-size: 1.5rem;
+      font-size: 2.5rem;
       font-weight: 700;
-      color: #8b5cf6;
+      background: linear-gradient(90deg, #06b6d4, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
-    .stat .text {
-      font-size: 0.8rem;
+    .stat .label {
+      font-size: 0.85rem;
       color: #71717a;
+      margin-top: 0.25rem;
     }
 
     footer {
       text-align: center;
-      margin-top: 2rem;
+      padding: 2rem;
       color: #71717a;
-      font-size: 0.85rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      margin-top: 2rem;
     }
 
     footer a {
@@ -305,13 +244,23 @@
       text-decoration: none;
     }
 
-    @media (max-width: 768px) {
-      .summary {
-        grid-template-columns: repeat(2, 1fr);
-      }
+    footer a:hover {
+      text-decoration: underline;
+    }
 
+    @media (max-width: 900px) {
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+      .concepts-grid {
+        grid-template-columns: 1fr;
+      }
+      .stats-row {
+        flex-direction: column;
+        gap: 2rem;
+      }
       h1 {
-        font-size: 1.8rem;
+        font-size: 2rem;
       }
     }
   </style>
@@ -319,181 +268,136 @@
 <body>
   <div class="container">
     <header>
-      <h1>Slopsquatting Scanner</h1>
-      <p class="subtitle">Detect hallucinated package names in AI-generated code</p>
+      <h1>AI Security Tools</h1>
+      <p class="subtitle">Free, open-source security scanners for AI-assisted development. Protect your codebase from the unique threats that come with AI coding assistants.</p>
+      <p class="tagline">Security has to happen before the commit.</p>
     </header>
 
-    <div class="warning-banner">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-        <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
-      </svg>
-      <p>
-        <strong>What is Slopsquatting?</strong> AI code assistants sometimes "hallucinate" non-existent package names.
-        Attackers can register these fake names with malicious code. When developers blindly install AI-suggested packages,
-        they may unknowingly execute malware. Research shows ~20% of AI code samples contain hallucinated packages.
-      </p>
+    <div class="tools-grid">
+      <a href="/slopsquatting.html" class="tool-card">
+        <div class="tool-icon slopsquatting">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+            <line x1="12" y1="22.08" x2="12" y2="12"/>
+          </svg>
+        </div>
+        <h3>Slopsquatting Scanner</h3>
+        <p>Detect hallucinated package names in AI-generated code. AI assistants sometimes suggest non-existent packages that attackers can register with malicious code.</p>
+        <div class="tool-features">
+          <span class="feature-tag">npm</span>
+          <span class="feature-tag">PyPI</span>
+          <span class="feature-tag">Real-time verification</span>
+        </div>
+      </a>
+
+      <a href="/context-poisoning.html" class="tool-card">
+        <div class="tool-icon context">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </div>
+        <h3>Context Poisoning Checker</h3>
+        <p>Scan config files, comments, and documents for hidden instructions that could manipulate AI agents. Detect "Lingering LLM Leaks" and injection attempts.</p>
+        <div class="tool-features">
+          <span class="feature-tag">Config files</span>
+          <span class="feature-tag">Hidden instructions</span>
+          <span class="feature-tag">LLM leaks</span>
+        </div>
+      </a>
+
+      <a href="/prompt-injection.html" class="tool-card">
+        <div class="tool-icon injection">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+            <polyline points="4 17 10 11 4 5"/>
+            <line x1="12" y1="19" x2="20" y2="19"/>
+          </svg>
+        </div>
+        <h3>Prompt Injection Detector</h3>
+        <p>Find code patterns vulnerable to prompt injection attacks. Identifies unsafe LLM output handling, missing sanitization, and dangerous eval patterns.</p>
+        <div class="tool-features">
+          <span class="feature-tag">Input validation</span>
+          <span class="feature-tag">Output handling</span>
+          <span class="feature-tag">SSRF detection</span>
+        </div>
+      </a>
+
+      <a href="/vulnerabilities.html" class="tool-card">
+        <div class="tool-icon vulnerability">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="12" y1="18" x2="12" y2="12"/>
+            <line x1="9" y1="15" x2="15" y2="15"/>
+          </svg>
+        </div>
+        <h3>AI Code Vulnerability Scanner</h3>
+        <p>Detect common vulnerability patterns in AI-generated code including SQL injection, hardcoded secrets, weak crypto, and unsafe deserialization.</p>
+        <div class="tool-features">
+          <span class="feature-tag">SQL injection</span>
+          <span class="feature-tag">Secrets</span>
+          <span class="feature-tag">XSS</span>
+          <span class="feature-tag">Command injection</span>
+        </div>
+      </a>
     </div>
 
-    <div class="input-section">
-      <div class="form-group">
-        <label for="language">Programming Language</label>
-        <select id="language">
-          <option value="javascript">JavaScript / TypeScript (npm)</option>
-          <option value="python">Python (PyPI)</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="code">Paste AI-generated code</label>
-        <textarea id="code" placeholder="// Paste your AI-generated code here...
-// The scanner will extract import/require statements
-// and check if packages exist on npm or PyPI
-
-import express from 'express';
-import someHallucinatedPackage from 'ai-made-this-up';
-const axios = require('axios');"></textarea>
-      </div>
-      <button id="scanBtn" onclick="scanCode()">Scan for Hallucinated Packages</button>
-    </div>
-
-    <div id="results" class="results-section">
-      <h2 style="margin-bottom: 1rem;">Scan Results</h2>
-      <div class="summary">
-        <div class="summary-card">
-          <div class="value" id="totalCount">0</div>
-          <div class="label">Packages Found</div>
-        </div>
-        <div class="summary-card">
-          <div class="value" id="existingCount" style="color: #22c55e;">0</div>
-          <div class="label">Verified</div>
-        </div>
-        <div class="summary-card">
-          <div class="value" id="notFoundCount" style="color: #ef4444;">0</div>
-          <div class="label">Not Found</div>
-        </div>
-        <div class="summary-card" id="riskCard">
-          <div class="value" id="riskLevel">LOW</div>
-          <div class="label">Risk Level</div>
-        </div>
-      </div>
-      <div id="packagesList" class="packages-list"></div>
+    <div class="combined-scanner">
+      <h2>Run All Scanners at Once</h2>
+      <p>Scan your code with all four security tools simultaneously. Get a comprehensive security assessment in one click.</p>
+      <a href="/full-scan.html">Launch Full Security Scan</a>
     </div>
 
     <div class="info-section">
-      <h3>How Slopsquatting Attacks Work</h3>
+      <h3>Why These Tools Matter</h3>
       <p>
-        Security researcher Bar Lanyado demonstrated this vulnerability by asking ChatGPT how to upload a model to HuggingFace.
-        The AI hallucinated a package called "huggingface-cli" (the correct package is huggingface_hub[cli]).
-        After publishing an empty package with that name on PyPI, it received <strong>30,000+ downloads in 3 months</strong>.
+        AI coding assistants are transforming software development, but they introduce new security risks that traditional tools don't address.
+        The threat model has shifted: you're not just securing code outputs anymore, you're securing the AI's cognition.
+        These tools help you identify risks <strong>before the commit</strong>.
       </p>
-      <ul>
-        <li><strong>~20%</strong> of AI code samples contain hallucinated packages</li>
-        <li><strong>58%</strong> of hallucinated names recur across multiple prompts</li>
-        <li><strong>GPT-4 Turbo:</strong> 3.59% hallucination rate</li>
-        <li><strong>CodeLlama:</strong> >33% hallucination rate</li>
-      </ul>
-      <div class="stats">
-        <div class="stat">
-          <div class="number">30K+</div>
-          <div class="text">Downloads of fake package</div>
+
+      <div class="concepts-grid">
+        <div class="concept">
+          <h4>Slopsquatting</h4>
+          <p>AI hallucinations create fake package names. Attackers register them with malware. 30K+ downloads of one fake package in 3 months.</p>
         </div>
+        <div class="concept">
+          <h4>Context Poisoning</h4>
+          <p>Malicious instructions hidden in comments, configs, or docs. The AI reads them, humans miss them. That's the Lingering LLM Leak.</p>
+        </div>
+        <div class="concept">
+          <h4>Prompt Injection</h4>
+          <p>The new SQL injection. Natural language has no syntax to validate. OpenAI admits it may never be fully solved.</p>
+        </div>
+      </div>
+
+      <div class="stats-row">
         <div class="stat">
-          <div class="number">58%</div>
-          <div class="text">Recurring hallucinations</div>
+          <div class="number">45%</div>
+          <div class="label">of AI-generated code contains security flaws</div>
         </div>
         <div class="stat">
           <div class="number">~20%</div>
-          <div class="text">AI samples affected</div>
+          <div class="label">of AI code samples have hallucinated packages</div>
+        </div>
+        <div class="stat">
+          <div class="number">58%</div>
+          <div class="label">of hallucinated names recur across prompts</div>
         </div>
       </div>
     </div>
 
     <footer>
-      <p>Built by <a href="https://beforethecommit.com" target="_blank">beforethecommit</a> for security awareness</p>
+      <p>
+        Built by <a href="https://beforethecommit.com" target="_blank">Before The Commit</a> |
+        <a href="https://radiusmethod.com" target="_blank">Radius Method</a>
+      </p>
+      <p style="margin-top: 0.5rem; font-size: 0.8rem;">
+        Open source security awareness tools. Free forever.
+      </p>
     </footer>
   </div>
-
-  <script>
-    async function scanCode() {
-      const code = document.getElementById('code').value;
-      const language = document.getElementById('language').value;
-      const btn = document.getElementById('scanBtn');
-      const results = document.getElementById('results');
-
-      if (!code.trim()) {
-        alert('Please paste some code to scan');
-        return;
-      }
-
-      btn.disabled = true;
-      btn.textContent = 'Scanning...';
-
-      try {
-        const response = await fetch('/api/scan', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ code, language })
-        });
-
-        const data = await response.json();
-
-        if (data.error) {
-          alert('Error: ' + data.error);
-          return;
-        }
-
-        // Update summary
-        document.getElementById('totalCount').textContent = data.summary.total;
-        document.getElementById('existingCount').textContent = data.summary.existing;
-        document.getElementById('notFoundCount').textContent = data.summary.notFound;
-
-        const riskCard = document.getElementById('riskCard');
-        const riskLevel = document.getElementById('riskLevel');
-        riskCard.className = 'summary-card risk-' + data.summary.riskLevel;
-        riskLevel.textContent = data.summary.riskLevel.toUpperCase();
-
-        // Update packages list
-        const list = document.getElementById('packagesList');
-        list.innerHTML = '';
-
-        if (data.packages.length === 0) {
-          list.innerHTML = '<p style="color: #a1a1aa; text-align: center; padding: 2rem;">No external packages detected in the code.</p>';
-        } else {
-          data.packages.forEach(pkg => {
-            const item = document.createElement('div');
-            item.className = 'package-item';
-
-            const statusClass = pkg.exists ? 'exists' : 'not-found';
-            const statusIcon = pkg.exists
-              ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>'
-              : '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
-
-            const description = pkg.exists
-              ? (pkg.description || 'Package exists on registry')
-              : 'Package NOT found - potential hallucination!';
-
-            item.innerHTML = `
-              <div class="package-status ${statusClass}">${statusIcon}</div>
-              <div class="package-info">
-                <div class="package-name">${pkg.name}</div>
-                <div class="package-desc">${description}</div>
-              </div>
-              <span class="package-badge ${statusClass}">${pkg.exists ? 'Verified' : 'Not Found'}</span>
-            `;
-            list.appendChild(item);
-          });
-        }
-
-        results.classList.add('visible');
-        results.scrollIntoView({ behavior: 'smooth' });
-
-      } catch (error) {
-        alert('Error scanning code: ' + error.message);
-      } finally {
-        btn.disabled = false;
-        btn.textContent = 'Scan for Hallucinated Packages';
-      }
-    }
-  </script>
 </body>
 </html>
