@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Full Security Scan - AI Security Tools</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); min-height: 100vh; color: #e4e4e7; }
+    .container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+    .back-link { display: inline-flex; align-items: center; gap: 0.5rem; color: #a1a1aa; text-decoration: none; margin-bottom: 1.5rem; font-size: 0.9rem; }
+    .back-link:hover { color: #06b6d4; }
+    header { text-align: center; margin-bottom: 2rem; }
+    h1 { font-size: 2.5rem; background: linear-gradient(90deg, #06b6d4, #8b5cf6, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.5rem; }
+    .subtitle { color: #a1a1aa; font-size: 1.1rem; }
+    .input-section { background: rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .form-group { margin-bottom: 1rem; }
+    label { display: block; margin-bottom: 0.5rem; color: #a1a1aa; font-size: 0.9rem; }
+    select, textarea { width: 100%; padding: 0.75rem; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #e4e4e7; font-size: 1rem; }
+    textarea { height: 300px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.9rem; resize: vertical; }
+    textarea:focus, select:focus { outline: none; border-color: #8b5cf6; }
+    button { width: 100%; padding: 1rem; background: linear-gradient(90deg, #06b6d4, #8b5cf6); border: none; border-radius: 8px; color: white; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: transform 0.2s; }
+    button:hover { transform: translateY(-2px); }
+    button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .results-section { display: none; }
+    .results-section.visible { display: block; }
+    .overall-risk { text-align: center; padding: 2rem; background: rgba(0, 0, 0, 0.3); border-radius: 12px; margin-bottom: 2rem; }
+    .overall-risk .label { color: #a1a1aa; font-size: 0.9rem; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .overall-risk .value { font-size: 3rem; font-weight: 700; }
+    .overall-risk.risk-none .value { color: #22c55e; }
+    .overall-risk.risk-medium .value { color: #eab308; }
+    .overall-risk.risk-high .value, .overall-risk.risk-critical .value { color: #ef4444; }
+    .scan-section { background: rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    .scan-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; cursor: pointer; }
+    .scan-title { display: flex; align-items: center; gap: 0.75rem; }
+    .scan-icon { width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+    .scan-icon.slopsquatting { background: linear-gradient(135deg, #f59e0b, #d97706); }
+    .scan-icon.context { background: linear-gradient(135deg, #ef4444, #dc2626); }
+    .scan-icon.injection { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+    .scan-icon.vulnerability { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+    .scan-name { font-weight: 600; font-size: 1.1rem; }
+    .scan-badge { padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+    .scan-badge.none { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+    .scan-badge.medium { background: rgba(234, 179, 8, 0.2); color: #eab308; }
+    .scan-badge.high, .scan-badge.critical { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+    .scan-findings { display: none; }
+    .scan-findings.expanded { display: block; }
+    .finding-item { background: rgba(0, 0, 0, 0.2); border-radius: 8px; padding: 0.75rem; margin-top: 0.5rem; border-left: 3px solid; }
+    .finding-item.critical { border-color: #ef4444; }
+    .finding-item.high { border-color: #f59e0b; }
+    .finding-item.medium { border-color: #eab308; }
+    .finding-header { display: flex; justify-content: space-between; margin-bottom: 0.25rem; }
+    .finding-type { font-weight: 500; font-size: 0.9rem; }
+    .finding-severity { font-size: 0.7rem; padding: 0.15rem 0.4rem; border-radius: 4px; text-transform: uppercase; }
+    .finding-severity.critical { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+    .finding-severity.high { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+    .finding-severity.medium { background: rgba(234, 179, 8, 0.2); color: #eab308; }
+    .finding-desc { color: #a1a1aa; font-size: 0.85rem; }
+    .package-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem; background: rgba(0, 0, 0, 0.2); border-radius: 6px; margin-top: 0.5rem; }
+    .package-status { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .package-status.exists { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+    .package-status.not-found { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+    .package-name { font-family: monospace; font-size: 0.9rem; }
+    .toggle-icon { transition: transform 0.2s; }
+    .toggle-icon.expanded { transform: rotate(180deg); }
+    footer { text-align: center; margin-top: 2rem; color: #71717a; font-size: 0.85rem; }
+    footer a { color: #06b6d4; text-decoration: none; }
+    @media (max-width: 768px) { .form-row { grid-template-columns: 1fr; } h1 { font-size: 1.8rem; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/" class="back-link">← Back to all tools</a>
+    <header>
+      <h1>Full Security Scan</h1>
+      <p class="subtitle">Run all four security scanners at once for a comprehensive assessment</p>
+    </header>
+    <div class="input-section">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="language">Programming Language (for package check)</label>
+          <select id="language">
+            <option value="javascript">JavaScript / TypeScript</option>
+            <option value="python">Python</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="checkPackages">Check Packages</label>
+          <select id="checkPackages">
+            <option value="true">Yes - verify packages exist</option>
+            <option value="false">No - skip package check</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="code">Paste code or content to scan</label>
+        <textarea id="code" placeholder="// Paste any code or content here...
+// The scanner will check for:
+// - Hallucinated package names (slopsquatting)
+// - Context poisoning patterns
+// - Prompt injection vulnerabilities
+// - Common code vulnerabilities"></textarea>
+      </div>
+      <button id="scanBtn" onclick="runFullScan()">Run Full Security Scan</button>
+    </div>
+    <div id="results" class="results-section">
+      <div id="overallRisk" class="overall-risk risk-none">
+        <div class="label">Overall Security Risk</div>
+        <div class="value" id="overallRiskValue">NONE</div>
+      </div>
+      <div id="scanResults"></div>
+    </div>
+    <footer><p>Part of <a href="/">AI Security Tools</a> by <a href="https://beforethecommit.com" target="_blank">Before The Commit</a></p></footer>
+  </div>
+  <script>
+    function toggleFindings(id) {
+      const findings = document.getElementById(id);
+      const icon = document.getElementById(id + '-icon');
+      findings.classList.toggle('expanded');
+      icon.classList.toggle('expanded');
+    }
+
+    async function runFullScan() {
+      const code = document.getElementById('code').value;
+      const language = document.getElementById('language').value;
+      const checkPackages = document.getElementById('checkPackages').value === 'true';
+      const btn = document.getElementById('scanBtn');
+      const results = document.getElementById('results');
+      if (!code.trim()) { alert('Please paste some content to scan'); return; }
+      btn.disabled = true; btn.textContent = 'Running all scanners...';
+      try {
+        const response = await fetch('/api/scan/all', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ code, language, checkPackages })
+        });
+        const data = await response.json();
+        if (data.error) { alert('Error: ' + data.error); return; }
+        
+        // Update overall risk
+        const overallRisk = document.getElementById('overallRisk');
+        const overallRiskValue = document.getElementById('overallRiskValue');
+        overallRisk.className = 'overall-risk risk-' + data.overallRisk;
+        overallRiskValue.textContent = data.overallRisk.toUpperCase();
+        
+        // Build scan results
+        const scanResults = document.getElementById('scanResults');
+        scanResults.innerHTML = '';
+        
+        // Context Poisoning
+        scanResults.innerHTML += buildScanSection('context', 'Context Poisoning', data.contextPoisoning);
+        
+        // Prompt Injection
+        scanResults.innerHTML += buildScanSection('injection', 'Prompt Injection', data.promptInjection);
+        
+        // Vulnerabilities
+        scanResults.innerHTML += buildScanSection('vulnerability', 'Code Vulnerabilities', data.vulnerabilities);
+        
+        // Slopsquatting
+        if (data.slopsquatting) {
+          scanResults.innerHTML += buildPackageSection(data.slopsquatting);
+        }
+        
+        results.classList.add('visible');
+        results.scrollIntoView({ behavior: 'smooth' });
+      } catch (error) { alert('Error: ' + error.message); } finally { btn.disabled = false; btn.textContent = 'Run Full Security Scan'; }
+    }
+
+    function buildScanSection(type, name, data) {
+      const iconClass = type === 'injection' ? 'injection' : type;
+      const hasFindings = data.findings && data.findings.length > 0;
+      const findingsHtml = hasFindings ? data.findings.map(f => 
+        '<div class="finding-item ' + f.severity + '"><div class="finding-header"><span class="finding-type">' + f.type.replace(/-/g, ' ') + '</span><span class="finding-severity ' + f.severity + '">' + f.severity + '</span></div><div class="finding-desc">' + f.description + '</div></div>'
+      ).join('') : '<p style="color: #22c55e; padding: 0.5rem;">No issues detected</p>';
+      
+      return '<div class="scan-section"><div class="scan-header" onclick="toggleFindings(\'' + type + '-findings\')"><div class="scan-title"><div class="scan-icon ' + iconClass + '"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><span class="scan-name">' + name + '</span></div><div style="display: flex; align-items: center; gap: 0.75rem;"><span class="scan-badge ' + data.summary.riskLevel + '">' + data.summary.total + ' issues</span><svg id="' + type + '-findings-icon" class="toggle-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div></div><div id="' + type + '-findings" class="scan-findings">' + findingsHtml + '</div></div>';
+    }
+
+    function buildPackageSection(data) {
+      const hasNotFound = data.summary.notFound > 0;
+      const packagesHtml = data.packages.map(pkg => {
+        const statusClass = pkg.exists ? 'exists' : 'not-found';
+        const icon = pkg.exists ? '✓' : '✗';
+        return '<div class="package-item"><div class="package-status ' + statusClass + '">' + icon + '</div><span class="package-name">' + pkg.name + '</span></div>';
+      }).join('');
+      
+      return '<div class="scan-section"><div class="scan-header" onclick="toggleFindings(\'slop-findings\')"><div class="scan-title"><div class="scan-icon slopsquatting"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div><span class="scan-name">Slopsquatting</span></div><div style="display: flex; align-items: center; gap: 0.75rem;"><span class="scan-badge ' + data.summary.riskLevel + '">' + data.summary.notFound + ' not found</span><svg id="slop-findings-icon" class="toggle-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div></div><div id="slop-findings" class="scan-findings">' + packagesHtml + '</div></div>';
+    }
+  </script>
+</body>
+</html>
